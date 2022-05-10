@@ -52,10 +52,17 @@ function useFetch(url: string) {
 function useDebounce(fn: Function) {
   let timer: any = useRef(0);
 
+  // 卸载
+  useEffect(() => {
+    return () => {
+      clearTimeout(timer.current);
+    };
+  }, []);
+
   return (e: any) => {
     clearTimeout(timer.current);
     timer.current = setTimeout(() => fn(e), 700);
-  }
+  };
 }
 
 function App() {
